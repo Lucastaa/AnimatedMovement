@@ -50,6 +50,22 @@ public class AnimationAndMovement : MonoBehaviour
     {
         isRunPressed = context.ReadValueAsButton();
     }
+    void handleGravity()
+    {
+        // apply proper gravity depending on if the character is grounded or not
+        if (characterController.isGrounded)
+        {
+            float groundedGravity = -.05f;
+            currentMovement.y = groundedGravity;
+            currentRunMovement.y = groundedGravity;
+        }
+        else
+        {
+            float gravity = -9.8f;
+            currentMovement.y += gravity;
+            currentRunMovement.y += gravity;
+        }
+    }
     void handleRotation()
     {
         Vector3 positionToLookAt;
@@ -107,6 +123,7 @@ public class AnimationAndMovement : MonoBehaviour
     {
         handleAnimation();
         handleRotation();
+        handleGravity();
 
         if (isRunPressed)
         {
